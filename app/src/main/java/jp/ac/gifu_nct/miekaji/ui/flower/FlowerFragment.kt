@@ -22,10 +22,10 @@ class FlowerFragment : Fragment() {
         flowerViewModel =
             ViewModelProviders.of(this).get(FlowerViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_flowers, container, false)
-        val textView: TextView = root.findViewById(R.id.text_flowers)
+        /*val textView: TextView = root.findViewById(R.id.text_flowers)
         flowerViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
-        })
+        })*/
         return root
     }
 }
