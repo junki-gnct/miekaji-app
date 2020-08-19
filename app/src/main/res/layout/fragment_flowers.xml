@@ -76,7 +76,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/jumpbutton"
                 android:layout_width="143dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
