@@ -22,10 +22,10 @@ class FriendFragment : Fragment() {
         friendViewModel =
             ViewModelProviders.of(this).get(FriendViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_friend, container, false)
-        val textView: TextView = root.findViewById(R.id.text_friend)
+        /*val textView: TextView = root.findViewById(R.id.text_friend)
         friendViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
-        })
+        })*/
         return root
     }
 }
