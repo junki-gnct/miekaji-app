@@ -48,6 +48,6 @@ class ListFragment:Fragment() {
         return dataList
     }
 
-    fun onClickRow(tappedView:View,lidtData: ListData){
+    fun onClickRow(tappedView:View,listData: ListData){
     }
 }
