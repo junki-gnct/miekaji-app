@@ -1,6 +1,5 @@
 package jp.ac.gifu_nct.miekaji.ui.list
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import jp.ac.gifu_nct.miekaji.MainActivity
 import jp.ac.gifu_nct.miekaji.R
 import kotlinx.android.synthetic.main.fragment_list.*
 
