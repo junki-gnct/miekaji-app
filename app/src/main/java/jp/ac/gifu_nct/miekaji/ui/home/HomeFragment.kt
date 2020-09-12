@@ -35,9 +35,16 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val ToKind=view.findViewById<Button>(R.id.toWorkchoose)
         val ToWork=view.findViewById<Button>(R.id.toHouseWork)
         ToWork.setOnClickListener {
-            Log.d(TAG,"ToWork pressed")
+            val kindFragment=KindFragment()
+            val fragmentTransaction=fragmentManager?.beginTransaction()
+            fragmentTransaction?.addToBackStack(null)
+            fragmentTransaction?.replace(R.id.nav_host_fragment,kindFragment)
+            fragmentTransaction?.commit()
+        }
+        ToWork.setOnClickListener {
             val HworkFragment=HouseworkFragment()
             val fragmentTransaction=fragmentManager?.beginTransaction()
             fragmentTransaction?.addToBackStack(null)
