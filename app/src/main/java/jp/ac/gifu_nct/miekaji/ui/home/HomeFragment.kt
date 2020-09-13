@@ -37,7 +37,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val ToKind=view.findViewById<Button>(R.id.toWorkchoose)
         val ToWork=view.findViewById<Button>(R.id.toHouseWork)
-        ToWork.setOnClickListener {
+        ToKind.setOnClickListener {
             val kindFragment=KindFragment()
             val fragmentTransaction=fragmentManager?.beginTransaction()
             fragmentTransaction?.addToBackStack(null)
