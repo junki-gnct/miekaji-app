@@ -23,7 +23,7 @@ class KindFragment:Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root=inflater.inflate(R.layout.fragment_workkind,container,false)
+        val root=inflater.inflate(R.layout.fragment_worklist,container,false)
         return root
     }
 
