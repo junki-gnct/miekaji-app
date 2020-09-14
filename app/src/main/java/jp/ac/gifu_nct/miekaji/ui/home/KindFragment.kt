@@ -47,7 +47,7 @@ class KindFragment:Fragment() {
         val dataList= mutableListOf<WorkData>()
         for (i in 0..10){
             val data:WorkData=WorkData().also {
-                it.work="家事"+i
+                it.work=WorkData().workList[i]
             }
             dataList.add(data)
         }
