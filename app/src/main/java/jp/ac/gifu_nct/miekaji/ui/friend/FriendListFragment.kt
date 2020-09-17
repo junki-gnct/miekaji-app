@@ -1,4 +1,4 @@
-package jp.ac.gifu_nct.miekaji.ui.list
+package jp.ac.gifu_nct.miekaji.ui.friend
 
 import android.os.Bundle
 import android.util.Log
@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import jp.ac.gifu_nct.miekaji.R
 import kotlinx.android.synthetic.main.fragment_list.*
 
-class ListFragment:Fragment() {
+class FriendListFragment:Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,21 +27,24 @@ class ListFragment:Fragment() {
         Log.d("lifeCycle","onViewCreated")
 
         val recyclerView=recycler_list
-        val adapter=ViewAdapter(createDataList(), object : ViewAdapter.ListListener {
-            override fun onClickRow(tappedView: View, listData: ListData) {
-                this@ListFragment.onClickRow(tappedView,listData)
-            }
-        })
+        val adapter= FriendAdapter(
+            createDataList(),
+            object : FriendAdapter.ListListener {
+                override fun onClickRow(tappedView: View, friendData: FriendData) {
+                    this@FriendListFragment.onClickRow(tappedView, friendData)
+                }
+            })
 
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager= LinearLayoutManager(activity)
         recyclerView.adapter=adapter
     }
 
-    private fun createDataList():List<ListData>{
-        val dataList= mutableListOf<ListData>()
+    private fun createDataList():List<FriendData>{
+        val dataList= mutableListOf<FriendData>()
         for (i in 0..10){
-            val data:ListData=ListData().also {
+            val data: FriendData =
+                FriendData().also {
                 it.name="フレンド"+i
             }
             dataList.add(data)
@@ -49,7 +52,7 @@ class ListFragment:Fragment() {
         return dataList
     }
 
-    fun onClickRow(tappedView:View,listData: ListData){
-        Toast.makeText(context, "リスト${listData.name}", Toast.LENGTH_LONG).show()
+    fun onClickRow(tappedView:View, friendData: FriendData){
+        Toast.makeText(context, "リスト${friendData.name}", Toast.LENGTH_LONG).show()
     }
 }

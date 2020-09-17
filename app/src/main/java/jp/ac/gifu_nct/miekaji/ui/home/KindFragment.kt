@@ -16,8 +16,6 @@ import jp.ac.gifu_nct.miekaji.ui.housework.HouseworkViewModel
 import kotlinx.android.synthetic.main.fragment_worklist.*
 
 class KindFragment:Fragment() {
-    private lateinit var kindViewModel: HouseworkViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

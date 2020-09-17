@@ -14,7 +14,10 @@ import androidx.fragment.app.ListFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import jp.ac.gifu_nct.miekaji.R
+import jp.ac.gifu_nct.miekaji.ui.home.KindFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_friend.*
+import kotlinx.android.synthetic.main.recycle_item.*
 
 class FriendFragment : Fragment() {
 
@@ -37,22 +40,27 @@ class FriendFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val Friend=view.findViewById<Button>(R.id.frikistbutton)
+        val Friend=view.findViewById<Button>(R.id.frilistbutton)
         val Group=view.findViewById<Button>(R.id.grolistbutton)
         val Rank=view.findViewById<Button>(R.id.rankingbutton)
         Friend.setOnClickListener {
             //フレンドリストに切り替絵
+            setFragment(FriendListFragment())
         }
         Group.setOnClickListener {
             //グループリストに切り替え
         }
         Rank.setOnClickListener {
             //家事量でソートする
-            /*val workFragment=WorkFragment()
-            val fragmentTransaction=fragmentManager?.beginTransaction()
-            fragmentTransaction?.addToBackStack(null)
-            fragmentTransaction?.replace(R.id.nav_host_fragment,workFragment)
-            fragmentTransaction?.commit()*/
+            /**/
         }
+    }
+
+    fun setFragment(fragment:Fragment) {
+        val moveFragment = fragment
+        val fragmentTransaction = fragmentManager?.beginTransaction()
+        fragmentTransaction?.addToBackStack(null)
+        fragmentTransaction?.replace(R.id.listfragment, moveFragment)
+        fragmentTransaction?.commit()
     }
 }

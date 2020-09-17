@@ -1,10 +1,10 @@
-package jp.ac.gifu_nct.miekaji.ui.list
+package jp.ac.gifu_nct.miekaji.ui.friend
 
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import jp.ac.gifu_nct.miekaji.R
 
-class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+class FriendHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     val nameView: TextView =itemView.findViewById(R.id.name)
 }
