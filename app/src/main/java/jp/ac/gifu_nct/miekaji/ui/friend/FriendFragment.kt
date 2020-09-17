@@ -43,12 +43,14 @@ class FriendFragment : Fragment() {
         val Friend=view.findViewById<Button>(R.id.frilistbutton)
         val Group=view.findViewById<Button>(R.id.grolistbutton)
         val Rank=view.findViewById<Button>(R.id.rankingbutton)
+        setFragment(FriendListFragment())
         Friend.setOnClickListener {
             //フレンドリストに切り替絵
             setFragment(FriendListFragment())
         }
         Group.setOnClickListener {
             //グループリストに切り替え
+            setFragment(GroupFragment())
         }
         Rank.setOnClickListener {
             //家事量でソートする
