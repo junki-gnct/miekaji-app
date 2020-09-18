@@ -8,14 +8,17 @@
 
     <item
         android:id="@+id/navigation_housework"
+        android:icon="@drawable/list"
         android:title="家事量" />
 
     <item
         android:id="@+id/navigation_flower"
+        android:icon="@drawable/flower"
         android:title="花の育成" />
 
     <item
         android:id="@+id/navigation_friend"
+        android:icon="@drawable/friends"
         android:title="フレンド" />
 
 </menu>
