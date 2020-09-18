@@ -7,6 +7,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -43,8 +46,7 @@ class KindFragment:Fragment() {
         })
 
         val handler = Handler(Looper.getMainLooper())
-
-        // TODO: Start loading animation.
+        view.findViewById<LinearLayout>(R.id.loadingOverlay).visibility = View.VISIBLE
 
         Thread() {
             val cat = DataUtil.fetchCategories()
@@ -52,7 +54,7 @@ class KindFragment:Fragment() {
             CategoryList.addAll(cat)
             handler.post {
                 adapter.notifyDataSetChanged()
-                // TODO: Stop loading animation.
+                view.findViewById<LinearLayout>(R.id.loadingOverlay).visibility = View.GONE
             }
         }.start()
 
