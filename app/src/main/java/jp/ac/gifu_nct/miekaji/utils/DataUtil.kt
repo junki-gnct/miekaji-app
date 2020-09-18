@@ -52,18 +52,7 @@ object DataUtil {
 
     fun fetchGroupMembers(): List<User> {
         val bufferList = ArrayList<User>()
-        for (i in 0..15) {
-            bufferList.add(
-                User(
-                    123456789,
-                    "ユーザー${i}",
-                    "",
-                    false,
-                    0.1
-                )
-            )
-        }
-        /*val categories = fetchData("/friends/list", "").getJSONArray("users")
+        val categories = fetchData("/fun/info", "").getJSONArray("members")
         for(i in 0 until categories.length()) {
             val element = categories.getJSONObject(i)
             bufferList.add(
@@ -75,7 +64,7 @@ object DataUtil {
                     element.getDouble("sum")
                 )
             )
-        }*/
+        }
         return bufferList
     }
 
