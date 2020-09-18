@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import jp.ac.gifu_nct.miekaji.R
+import jp.ac.gifu_nct.miekaji.structures.User
 
-class GroupAdapter(private val friend:List<FriendData>, private val listener: ListListener):
+class GroupAdapter(private val friend:List<User>, private val listener: ListListener):
     RecyclerView.Adapter<FriendHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendHolder {
         Log.d("Adapter","onCreateViewHolder")
@@ -18,8 +19,9 @@ class GroupAdapter(private val friend:List<FriendData>, private val listener: Li
 
     override fun onBindViewHolder(holder: FriendHolder, position: Int) {
         Log.d("Adapter","onBindViewHolder")
-        holder.nameView.text=friend[position].name
-        holder.toGroup.setVisibility(View.INVISIBLE)
+        holder.nameView.text=friend[position].userName
+        holder.fWorkValue.text = "%.1f".format(friend[position].jobSum)
+        holder.toGroup.visibility = View.GONE
         holder.itemView.setOnClickListener {
             listener.onClickRow(it,friend[position])
         }
@@ -31,6 +33,6 @@ class GroupAdapter(private val friend:List<FriendData>, private val listener: Li
     }
 
     interface ListListener{
-        fun onClickRow(tappedView: View, friendData: FriendData)
+        fun onClickRow(tappedView: View, friendData: User)
     }
 }

@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import jp.ac.gifu_nct.miekaji.R
+import jp.ac.gifu_nct.miekaji.structures.User
 
-class FriendAdapter(private val friend:List<FriendData>, private val listener: ListListener):RecyclerView.Adapter<FriendHolder>() {
+class FriendAdapter(private val friend:List<User>, private val listener: ListListener):RecyclerView.Adapter<FriendHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendHolder {
         Log.d("Adapter","onCreateViewHolder")
         val rowView:View=LayoutInflater.from(parent.context).inflate(R.layout.recycle_item,parent,false)
@@ -16,7 +17,8 @@ class FriendAdapter(private val friend:List<FriendData>, private val listener: L
 
     override fun onBindViewHolder(holder: FriendHolder, position: Int) {
         Log.d("Adapter","onBindViewHolder")
-        holder.nameView.text=friend[position].name
+        holder.nameView.text = friend[position].userName
+        holder.fWorkValue.text = "%.1f".format(friend[position].jobSum)
         holder.itemView.setOnClickListener {
             listener.onClickRow(it,friend[position])
         }
@@ -28,6 +30,6 @@ class FriendAdapter(private val friend:List<FriendData>, private val listener: L
     }
 
     interface ListListener{
-        fun onClickRow(tappedView: View, friendData: FriendData)
+        fun onClickRow(tappedView: View, friendData: User)
     }
 }

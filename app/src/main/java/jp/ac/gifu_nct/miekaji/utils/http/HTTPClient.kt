@@ -13,7 +13,6 @@ import java.net.URLEncoder
 object HTTPClient {
 
     fun getRequest(url: String, parameters: HashMap<String, String>?): JSONObject {
-        Log.d("NW", "get Requested")
         var arguments = ""
         if (parameters != null) {
             parameters!!.keys.forEach{
@@ -26,10 +25,11 @@ object HTTPClient {
         }
         var requestedUrl = url + arguments
 
+        Log.d("URL", requestedUrl)
+
         val url = URL(requestedUrl);
         val con = url.openConnection() as HttpURLConnection
         con.requestMethod = "GET"
-        Log.d("NW", "Starting connection...")
         con.useCaches = false
         con.connect()
 
@@ -43,7 +43,6 @@ object HTTPClient {
         }
 
         br.close()
-        Log.d("NW", "Finished")
 
         return JSONObject(sb.toString())
     }
