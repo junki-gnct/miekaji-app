@@ -1,6 +1,8 @@
 package jp.ac.gifu_nct.miekaji.ui.home
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,10 +14,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import jp.ac.gifu_nct.miekaji.R
+import jp.ac.gifu_nct.miekaji.structures.JobCategory
 import jp.ac.gifu_nct.miekaji.ui.housework.HouseworkViewModel
+import jp.ac.gifu_nct.miekaji.utils.DataUtil
 import kotlinx.android.synthetic.main.fragment_list.*
 
 class KindFragment:Fragment() {
+    val CategoryList = ArrayList<JobCategory>()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,29 +36,32 @@ class KindFragment:Fragment() {
         Log.d("lifeCycle","onViewCreated")
 
         val recyclerView=recycler_list
-        val adapter=WorkAdapter(createDataList(), object : WorkAdapter.ListListener {
-            override fun onClickRow(tappedView: View, listData: WorkData) {
+        val adapter = WorkAdapter(CategoryList, object : WorkAdapter.ListListener {
+            override fun onClickRow(tappedView: View, listData: JobCategory) {
                 this@KindFragment.onClickRow(tappedView,listData)
             }
         })
+
+        val handler = Handler(Looper.getMainLooper())
+
+        // TODO: Start loading animation.
+
+        Thread() {
+            val cat = DataUtil.fetchCategories()
+            CategoryList.clear()
+            CategoryList.addAll(cat)
+            handler.post {
+                adapter.notifyDataSetChanged()
+                // TODO: Stop loading animation.
+            }
+        }.start()
 
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager= LinearLayoutManager(activity)
         recyclerView.adapter=adapter
     }
 
-    private fun createDataList():List<WorkData>{
-        val dataList= mutableListOf<WorkData>()
-        for (i in 0..10){
-            val data:WorkData=WorkData().also {
-                it.work=WorkData().workList[i]
-            }
-            dataList.add(data)
-        }
-        return dataList
-    }
-
-    fun onClickRow(tappedView:View,listData: WorkData){
-        Toast.makeText(context, "リスト${listData.work}", Toast.LENGTH_LONG).show()
+    fun onClickRow(tappedView:View, listData: JobCategory){
+        Toast.makeText(context, "リスト${listData.displayName}", Toast.LENGTH_SHORT).show()
     }
 }

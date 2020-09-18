@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import jp.ac.gifu_nct.miekaji.R
+import jp.ac.gifu_nct.miekaji.structures.JobCategory
 
-class WorkAdapter(private val list:List<WorkData>,private val listener:ListListener):RecyclerView.Adapter<WorkHolder>() {
+class WorkAdapter(private val list:List<JobCategory>,private val listener:ListListener):RecyclerView.Adapter<WorkHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkHolder {
         Log.d("Adapter","onCreateViewHolder")
         val rowView: View =
@@ -18,7 +19,7 @@ class WorkAdapter(private val list:List<WorkData>,private val listener:ListListe
 
     override fun onBindViewHolder(holder:WorkHolder, position: Int) {
         Log.d("Adapter","onBindViewHolder")
-        holder.workView.text=list[position].work
+        holder.workView.text=list[position].displayName
         holder.itemView.setOnClickListener {
             listener.onClickRow(it,list[position])
         }
@@ -30,6 +31,6 @@ class WorkAdapter(private val list:List<WorkData>,private val listener:ListListe
     }
 
     interface ListListener{
-        fun onClickRow(tappedView: View, listData:WorkData)
+        fun onClickRow(tappedView: View, listData: JobCategory)
     }
 }
