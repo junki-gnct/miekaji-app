@@ -2,6 +2,7 @@ package jp.ac.gifu_nct.miekaji.utils
 
 import android.util.Log
 import jp.ac.gifu_nct.miekaji.structures.JobCategory
+import jp.ac.gifu_nct.miekaji.structures.JobInfo
 import jp.ac.gifu_nct.miekaji.structures.User
 import jp.ac.gifu_nct.miekaji.utils.http.HTTPClient
 import org.json.JSONArray
@@ -13,6 +14,48 @@ object DataUtil {
         val req_url = "${AuthUtil.API_BASE_URL}${endpoint}?token=${AuthUtil.token}${arguments}"
 
         return HTTPClient.getRequest(req_url, null)
+    }
+
+    fun fetchTodayJob(): List<JobInfo> {
+        val bufferList = ArrayList<JobInfo>()
+        val jobs = fetchData("/job/today", "").getJSONArray("histories")
+        for(i in 0 until jobs.length()) {
+            val element = jobs.getJSONObject(i)
+            val category = element.getJSONObject("category")
+            bufferList.add(
+                JobInfo(
+                    element.getLong("ID"),
+                    JobCategory(
+                        category.getLong("ID"),
+                        category.getString("name"),
+                        category.getString("detail"),
+                        category.getDouble("weight")
+                    ),
+                    element.getDouble("motion"),
+                    element.getDouble("time"),
+                    element.getDouble("value")
+                )
+            )
+        }
+
+        return bufferList
+    }
+
+    fun fetchTodayJobTimeValueByEach(): HashMap<JobCategory, Pair<Double, Double>> {
+        return fetchTodayJobTimeValueByEach(fetchTodayJob())
+    }
+
+    fun fetchTodayJobTimeValueByEach(jobs: List<JobInfo>): HashMap<JobCategory, Pair<Double, Double>> {
+        val map = HashMap<JobCategory, Pair<Double, Double>>()
+        val categories = fetchCategories()
+        categories.forEach {
+            map[it] = Pair<Double, Double>(0.0, 0.0)
+        }
+        jobs.forEach {
+            val value = map[it.jobCategory]!!
+            map[it.jobCategory] = Pair<Double, Double>(value.first + it.jobValue, value.second + it.jobTime)
+        }
+        return map
     }
 
     fun fetchCategories(): List<JobCategory> {

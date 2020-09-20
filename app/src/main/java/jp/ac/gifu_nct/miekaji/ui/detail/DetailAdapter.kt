@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import jp.ac.gifu_nct.miekaji.R
+import jp.ac.gifu_nct.miekaji.structures.JobCategoryandValue
 
-class DetailAdapter(private val list:List<DetailData>,private val listener:ListListener):
+class DetailAdapter(private val list:List<JobCategoryandValue>,private val listener:ListListener):
     RecyclerView.Adapter<DetailHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailHolder {
         Log.d("Adapter","onCreateViewHolder")
@@ -18,7 +19,8 @@ class DetailAdapter(private val list:List<DetailData>,private val listener:ListL
 
     override fun onBindViewHolder(holder:DetailHolder, position: Int) {
         Log.d("Adapter","onBindViewHolder")
-        holder.doView.text=list[position].dowork
+        holder.doView.text = list[position].categoryValue.displayName
+        holder.valueView.text = "%.1f 分 - %.1f".format(list[position].jobValue.second, list[position].jobValue.first)
         holder.itemView.setOnClickListener {
             listener.onClickRow(it,list[position])
         }
@@ -30,6 +32,6 @@ class DetailAdapter(private val list:List<DetailData>,private val listener:ListL
     }
 
     interface ListListener{
-        fun onClickRow(tappedView: View, listData:DetailData)
+        fun onClickRow(tappedView: View, listData: JobCategoryandValue)
     }
 }
