@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_weight="1"
-            android:src="@drawable/flowex" />
+            android:src="@drawable/sp1flower" />
 
         <Space
             android:layout_width="match_parent"

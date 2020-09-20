@@ -52,6 +52,27 @@ class FlowerFragment : Fragment() {
 
     fun Flowerset(ten:Char,month:Char){
         when (month){
+            '2'->flowerImage.setImageResource(R.drawable.sp1flower)
+            '3'->flowerImage.setImageResource(R.drawable.sp1flower)
+            '4'->flowerImage.setImageResource(R.drawable.sp1flower)
+            '5'->flowerImage.setImageResource(R.drawable.sp1flower)
+            '6'->flowerImage.setImageResource(R.drawable.sp1flower)
+            '7'->flowerImage.setImageResource(R.drawable.sp1flower)
+            '8'->flowerImage.setImageResource(R.drawable.sp1flower)
+            '9'->flowerImage.setImageResource(R.drawable.sp1flower)
+            '0'->flowerImage.setImageResource(R.drawable.sp1flower)
+        }
+        when(ten){
+            '1'->when(month){
+                '0'->flowerImage.setImageResource(R.drawable.sp1flower)
+                '1'->flowerImage.setImageResource(R.drawable.sp1flower)
+                '2'->flowerImage.setImageResource(R.drawable.sp1flower)
+            }
+        }
+    }
+
+    /*fun Flowerset(ten:Char,month:Char){
+        when (month){
             '2'->flowerImage.setImageResource(R.drawable.flowex)
             '3'->flowerImage.setImageResource(R.drawable.sp1flower)
             '4'->flowerImage.setImageResource(R.drawable.sp1flower)
@@ -69,5 +90,5 @@ class FlowerFragment : Fragment() {
                 '2'->flowerImage.setImageResource(R.drawable.flowex)
             }
         }
-    }
+    }*/
 }
