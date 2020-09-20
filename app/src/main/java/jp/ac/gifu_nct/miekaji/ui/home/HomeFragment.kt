@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import jp.ac.gifu_nct.miekaji.MeasureActivity
 import jp.ac.gifu_nct.miekaji.R
 import jp.ac.gifu_nct.miekaji.ui.housework.HouseworkFragment
@@ -49,6 +50,7 @@ class HomeFragment : Fragment() {
         }
         ToWork.setOnClickListener {
             val HworkFragment = HouseworkFragment()
+            (activity!!.findViewById(R.id.nav_view) as BottomNavigationView).selectedItemId = R.id.navigation_housework
             val fragmentTransaction=fragmentManager?.beginTransaction()
             fragmentTransaction?.addToBackStack(null)
             fragmentTransaction?.replace(R.id.nav_host_fragment,HworkFragment)
