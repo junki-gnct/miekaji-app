@@ -1,6 +1,7 @@
 package jp.ac.gifu_nct.miekaji.ui.home
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import jp.ac.gifu_nct.miekaji.MeasureActivity
 import jp.ac.gifu_nct.miekaji.R
 import jp.ac.gifu_nct.miekaji.ui.housework.HouseworkFragment
 
@@ -37,19 +39,24 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val ToKind=view.findViewById<Button>(R.id.toWorkchoose)
         val ToWork=view.findViewById<Button>(R.id.toHouseWork)
+        val ToDevice = view.findViewById<Button>(R.id.toDeviceConnectionTest)
         ToKind.setOnClickListener {
-            val kindFragment=KindFragment()
+            val kindFragment = KindFragment()
             val fragmentTransaction=fragmentManager?.beginTransaction()
             fragmentTransaction?.addToBackStack(null)
             fragmentTransaction?.replace(R.id.nav_host_fragment,kindFragment)
             fragmentTransaction?.commit()
         }
         ToWork.setOnClickListener {
-            val HworkFragment=HouseworkFragment()
+            val HworkFragment = HouseworkFragment()
             val fragmentTransaction=fragmentManager?.beginTransaction()
             fragmentTransaction?.addToBackStack(null)
             fragmentTransaction?.replace(R.id.nav_host_fragment,HworkFragment)
             fragmentTransaction?.commit()
+        }
+        ToDevice.setOnClickListener {
+            val intent = Intent(activity, MeasureActivity::class.java)
+            startActivity(intent)
         }
     }
 }
