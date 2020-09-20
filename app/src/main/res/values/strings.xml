@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">Miekaji</string>
+    <string name="app_name">見え家事</string>
     <string name="title_activity_main2">MainActivity</string>
+    <string name="title_activity_measure">測定中</string>
     <string name="title_home">Home</string>
     <string name="title_housework">Housework</string>
     <string name="title_flower">Flower</string>
