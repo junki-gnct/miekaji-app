@@ -24,16 +24,30 @@ class FlowerFragment : Fragment() {
     private lateinit var flowerViewModel: FlowerViewModel
 
     private var flowerValue = mutableListOf(0.0, 15000.0, 30000.0, 40000.0, 50000.0)
-    private var flowerLabel = mutableListOf("種植えまであと", "発芽まであと", "蕾がつくまであと", "花が咲くまであと", "満開まであと")
+
+    private var flowerLabel = mutableListOf(
+        mutableListOf("種植えまであと", "発芽まであと", "成長するまであと", "蕾がつくまであと", "満開まであと"),  // 1月
+        mutableListOf("種植えまであと", "発芽まであと", "成長するまであと", "蕾がつくまであと", "満開まであと"),  // 2月
+        mutableListOf("種植えまであと", "発芽まであと", "成長するまであと", "蕾がつくまであと", "満開まであと"),  // 3月
+        mutableListOf("種植えまであと", "発芽まであと", "成長するまであと", "蕾がつくまであと", "満開まであと"),  // 4月
+        mutableListOf("種植えまであと", "発芽まであと", "成長するまであと", "蕾がつくまであと", "満開まであと"),  // 5月
+        mutableListOf("種植えまであと", "発芽まであと", "成長するまであと", "蕾がつくまであと", "満開まであと"),  // 6月
+        mutableListOf("種植えまであと", "発芽まであと", "成長するまであと", "蕾がつくまであと", "満開まであと"),  // 7月
+        mutableListOf("種植えまであと", "発芽まであと", "成長するまであと", "蕾がつくまであと", "満開まであと"),  // 8月
+        mutableListOf("種植えまであと", "発芽まであと", "蕾がつくまであと", "花が咲くまであと", "満開まであと"),  // 9月
+        mutableListOf("種植えまであと", "発芽まであと", "蕾がつくまであと", "花が咲くまであと", "満開まであと"),  // 10月
+        mutableListOf("種植えまであと", "発芽まであと", "蕾がつくまであと", "花が咲くまであと", "満開まであと"),  // 11月
+        mutableListOf("種植えまであと", "発芽まであと", "蕾がつくまであと", "花が咲くまであと", "満開まであと")   // 12月
+    )
     private var flowerImageList = mutableListOf(
-        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower", "sp1full"),  // 1月
-        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower", "sp1full"),  // 2月
-        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower", "sp1full"),  // 3月
-        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower", "sp1full"),  // 4月
-        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower", "sp1full"),  // 5月
-        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower", "sp1full"),  // 6月
-        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower", "sp1full"),  // 7月
-        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower", "sp1full"),  // 8月
+        mutableListOf(null, "sp2seed", "sp2leaf", "sp2leaf2", "sp2bud", "sp2full"),  // 1月
+        mutableListOf(null, "sp2seed", "sp2leaf", "sp2leaf2", "sp2bud", "sp2full"),  // 2月
+        mutableListOf(null, "sp2seed", "sp2leaf", "sp2leaf2", "sp2bud", "sp2full"),  // 3月
+        mutableListOf(null, "sp2seed", "sp2leaf", "sp2leaf2", "sp2bud", "sp2full"),  // 4月
+        mutableListOf(null, "sm1seed", "sm1leaf", "sm1leaf2", "sm1bud", "sm1full"),  // 5月
+        mutableListOf(null, "sm1seed", "sm1leaf", "sm1leaf2", "sm1bud", "sm1full"),  // 6月
+        mutableListOf(null, "sm1seed", "sm1leaf", "sm1leaf2", "sm1bud", "sm1full"),  // 7月
+        mutableListOf(null, "sm1seed", "sm1leaf", "sm1leaf2", "sm1bud", "sm1full"),  // 8月
         mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower", "sp1full"),  // 9月
         mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower", "sp1full"),  // 10月
         mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower", "sp1full"),  // 11月
@@ -86,14 +100,14 @@ class FlowerFragment : Fragment() {
                         maxOf(0.0, flowerValue[minOf(flowerIndex, flowerValue.size - 1)] - sum)
                     root.findViewById<TextView>(R.id.editTextTextPersonName3).text =
                         "%.1f".format(remain)
+                    val month =
+                        Integer.parseInt(TimeCatcher().Ten.toString() + TimeCatcher().Month.toString())
                     root.findViewById<TextView>(R.id.textView3).text =
-                        flowerLabel[minOf(flowerIndex, flowerValue.size - 1)]
+                        flowerLabel[month - 1][minOf(flowerIndex, flowerValue.size - 1)]
                     var imageIndex = flowerIndex
                     if (remain <= 0.0) {
                         imageIndex++
                     }
-                    val month =
-                        Integer.parseInt(TimeCatcher().Ten.toString() + TimeCatcher().Month.toString())
                     root.findViewById<ImageView>(R.id.flowerImage).setImageDrawable(
                         getImage(
                             requireActivity(),
