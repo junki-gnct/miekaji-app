@@ -19,7 +19,7 @@ class WorkAdapter(private val list:List<JobCategory>,private val listener:ListLi
 
     override fun onBindViewHolder(holder:WorkHolder, position: Int) {
         Log.d("Adapter","onBindViewHolder")
-        holder.workView.text=list[position].displayName
+        holder.workView.text = "${list[position].displayName} (x${"%.1f".format(list[position].jobWeight)})"
         holder.itemView.setOnClickListener {
             listener.onClickRow(it,list[position])
         }
