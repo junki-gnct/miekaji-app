@@ -11,6 +11,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import jp.ac.gifu_nct.miekaji.structures.JobCategory
@@ -41,20 +42,30 @@ class MeasureActivity : AppCompatActivity() {
     private val uuid = "00001101-0000-1000-8000-00805F9B34FB" //通信規格がSPPであることを示す数字
     private var startTime: Long? = null
 
-    private var accelValue = 0.0
-    private var dataCount = 0
-    private var category: JobCategory? = null
+    var accelValue = 0.0
+    var dataCount = 0
+    var category: JobCategory? = null
 
     private lateinit var callback: CallBackActivity
     class CallBackActivity: SocketCallback {
-        private lateinit var activity: MeasureActivity
+        private var activity: MeasureActivity
         constructor(activity: MeasureActivity) {
             this.activity = activity
         }
 
         override fun onMessage(message: String) {
             activity.runOnUiThread {
-                Toast.makeText(activity, "受信: ${message}", Toast.LENGTH_SHORT).show()
+                Log.d("Received", message)
+                if(message.toLowerCase().startsWith("accel_")) {
+                    val accel = (message.toLowerCase().replace("accel_", "")).toDouble()
+                    activity.accelValue += accel
+                    activity.dataCount++
+
+                    val time = (System.currentTimeMillis() - activity.startTime!!) / 1000 / 60.0
+                    activity.findViewById<TextView>(R.id.JobValue).text = "%.1f".format(activity.accelValue * time * activity.category!!.jobWeight)
+                    activity.findViewById<TextView>(R.id.avgSpeed).text = "%.1f".format(activity.accelValue / activity.dataCount)
+                    activity.findViewById<TextView>(R.id.measureMinutes).text = "%.1f 分".format(time)
+                }
             }
         }
     }
