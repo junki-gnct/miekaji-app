@@ -86,7 +86,8 @@ object DataUtil {
                     element.getString("name"),
                     element.getString("icon_id"),
                     false,
-                    element.getDouble("sum")
+                    element.getDouble("sum"),
+                    element.getDouble("today")
                 )
             )
         }
@@ -104,7 +105,8 @@ object DataUtil {
                     element.getString("name"),
                     element.getString("icon_id"),
                     false,
-                    element.getDouble("sum")
+                    element.getDouble("sum"),
+                    element.getDouble("today")
                 )
             )
         }
