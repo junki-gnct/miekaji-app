@@ -2,8 +2,8 @@
     <string name="app_name">見え家事</string>
     <string name="title_activity_main2">MainActivity</string>
     <string name="title_activity_measure">測定中</string>
-    <string name="title_home">Home</string>
-    <string name="title_housework">Housework</string>
-    <string name="title_flower">Flower</string>
-    <string name="title_friend">Friend</string>
+    <string name="title_home">見え家事</string>
+    <string name="title_housework">家事量</string>
+    <string name="title_flower">花の育成</string>
+    <string name="title_friend">フレンド・グループ</string>
 </resources>

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -15,7 +16,9 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import jp.ac.gifu_nct.miekaji.R
 import jp.ac.gifu_nct.miekaji.ui.detail.DetailFragment
+import jp.ac.gifu_nct.miekaji.utils.DataUtil
 import kotlinx.android.synthetic.main.fragment_flowers.*
+import org.w3c.dom.Text
 
 class FlowerFragment : Fragment() {
 
@@ -33,6 +36,26 @@ class FlowerFragment : Fragment() {
         flowerViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })*/
+        if(activity != null) {
+            val loading = root.findViewById<LinearLayout>(R.id.loadingOverlay_flower)
+            loading.visibility = View.VISIBLE
+            Thread() {
+                val jobs = DataUtil.fetchGroupMembers()
+                var sum = 0.0
+                var today = 0.0
+                jobs.forEach {
+                    sum += it.jobSum
+                    today += it.todaySum
+                }
+                activity!!.runOnUiThread {
+                    root.findViewById<TextView>(R.id.dayWorkText).text = "%.1f".format(today)
+                    root.findViewById<TextView>(R.id.editTextTextPersonName2).text = "%.1f".format(sum)
+                    root.findViewById<TextView>(R.id.editTextTextPersonName3).text = "EditText"
+                    loading.visibility = View.GONE
+                }
+            }.start()
+        }
+
         return root
     }
 
