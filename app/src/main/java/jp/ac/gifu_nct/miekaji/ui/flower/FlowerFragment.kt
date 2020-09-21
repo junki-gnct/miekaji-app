@@ -23,21 +23,21 @@ class FlowerFragment : Fragment() {
 
     private lateinit var flowerViewModel: FlowerViewModel
 
-    private var flowerValue = mutableListOf(0.0, 15000.0, 30000.0, 40000.0)
-    private var flowerLabel = mutableListOf("種植えまであと", "発芽まであと", "蕾がつくまであと", "花が咲くまであと")
+    private var flowerValue = mutableListOf(0.0, 15000.0, 30000.0, 40000.0, 50000.0)
+    private var flowerLabel = mutableListOf("種植えまであと", "発芽まであと", "蕾がつくまであと", "花が咲くまであと", "満開まであと")
     private var flowerImageList = mutableListOf(
-        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower"),  // 1月
-        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower"),  // 2月
-        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower"),  // 3月
-        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower"),  // 4月
-        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower"),  // 5月
-        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower"),  // 6月
-        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower"),  // 7月
-        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower"),  // 8月
-        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower"),  // 9月
-        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower"),  // 10月
-        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower"),  // 11月
-        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower")   // 12月
+        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower", "sp1full"),  // 1月
+        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower", "sp1full"),  // 2月
+        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower", "sp1full"),  // 3月
+        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower", "sp1full"),  // 4月
+        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower", "sp1full"),  // 5月
+        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower", "sp1full"),  // 6月
+        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower", "sp1full"),  // 7月
+        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower", "sp1full"),  // 8月
+        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower", "sp1full"),  // 9月
+        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower", "sp1full"),  // 10月
+        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower", "sp1full"),  // 11月
+        mutableListOf(null, "sp1seed", "sp1leaf", "sp1bud", "sp1flower", "sp1full")   // 12月
     )
     private var flowerIndex = 0
 
@@ -69,7 +69,7 @@ class FlowerFragment : Fragment() {
                     sum += it.jobSum
                     today += it.todaySum
                 }
-                activity!!.runOnUiThread {
+                requireActivity().runOnUiThread {
                     root.findViewById<TextView>(R.id.dayWorkText).text = "%.1f".format(today)
                     root.findViewById<TextView>(R.id.editTextTextPersonName2).text =
                         "%.1f".format(sum)
@@ -96,7 +96,7 @@ class FlowerFragment : Fragment() {
                         Integer.parseInt(TimeCatcher().Ten.toString() + TimeCatcher().Month.toString())
                     root.findViewById<ImageView>(R.id.flowerImage).setImageDrawable(
                         getImage(
-                            activity!!,
+                            requireActivity(),
                             flowerImageList[month - 1][imageIndex]
                         )
                     )
@@ -116,7 +116,7 @@ class FlowerFragment : Fragment() {
         //Flowerset(TimeCatcher().Ten,TimeCatcher().Month)
 
         Jump.setOnClickListener {
-            (activity!!.findViewById(R.id.nav_view) as BottomNavigationView).selectedItemId =
+            (requireActivity().findViewById(R.id.nav_view) as BottomNavigationView).selectedItemId =
                 R.id.navigation_housework
             val detailFragment = DetailFragment()
             val fragmentTransaction = fragmentManager?.beginTransaction()
@@ -125,48 +125,6 @@ class FlowerFragment : Fragment() {
             fragmentTransaction?.commit()
         }
     }
-
-/*fun Flowerset(ten:Char,month:Char){
-when (month){
-    '2'->flowerImage.setImageResource(R.drawable.sp1flower)
-    '3'->flowerImage.setImageResource(R.drawable.sp1flower)
-    '4'->flowerImage.setImageResource(R.drawable.sp1flower)
-    '5'->flowerImage.setImageResource(R.drawable.sp1flower)
-    '6'->flowerImage.setImageResource(R.drawable.sp1flower)
-    '7'->flowerImage.setImageResource(R.drawable.sp1flower)
-    '8'->flowerImage.setImageResource(R.drawable.sp1flower)
-    '9'->flowerImage.setImageResource(R.drawable.sp1flower)
-    '0'->flowerImage.setImageResource(R.drawable.sp1flower)
-}
-when(ten){
-    '1'->when(month){
-        '0'->flowerImage.setImageResource(R.drawable.sp1flower)
-        '1'->flowerImage.setImageResource(R.drawable.sp1flower)
-        '2'->flowerImage.setImageResource(R.drawable.sp1flower)
-    }
-}
-}
-
-fun Flowerset(ten:Char,month:Char){
-when (month){
-    '2'->flowerImage.setImageResource(R.drawable.flowex)
-    '3'->flowerImage.setImageResource(R.drawable.sp1flower)
-    '4'->flowerImage.setImageResource(R.drawable.sp1flower)
-    '5'->flowerImage.setImageResource(R.drawable.flowex)
-    '6'->flowerImage.setImageResource(R.drawable.flowex)
-    '7'->flowerImage.setImageResource(R.drawable.flowex)
-    '8'->flowerImage.setImageResource(R.drawable.flowex)
-    '9'->flowerImage.setImageResource(R.drawable.sp1flower)
-    '0'->flowerImage.setImageResource(R.drawable.flowex)
-}
-when(ten){
-    '1'->when(month){
-        '0'->flowerImage.setImageResource(R.drawable.flowex)
-        '1'->flowerImage.setImageResource(R.drawable.flowex)
-        '2'->flowerImage.setImageResource(R.drawable.flowex)
-    }
-}
-}*/
 
 }
 
