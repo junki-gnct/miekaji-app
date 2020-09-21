@@ -12,7 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import jp.ac.gifu_nct.miekaji.R
+import jp.ac.gifu_nct.miekaji.ui.detail.DetailFragment
 import kotlinx.android.synthetic.main.fragment_flowers.*
 
 class FlowerFragment : Fragment() {
@@ -42,10 +44,11 @@ class FlowerFragment : Fragment() {
         Flowerset(TimeCatcher().Ten,TimeCatcher().Month)
 
         Jump.setOnClickListener {
-            val workFragment=WorkFragment()
+            (activity!!.findViewById(R.id.nav_view) as BottomNavigationView).selectedItemId = R.id.navigation_housework
+            val detailFragment= DetailFragment()
             val fragmentTransaction=fragmentManager?.beginTransaction()
             fragmentTransaction?.addToBackStack(null)
-            fragmentTransaction?.replace(R.id.nav_host_fragment,workFragment)
+            fragmentTransaction?.replace(R.id.nav_host_fragment,detailFragment)
             fragmentTransaction?.commit()
         }
     }
