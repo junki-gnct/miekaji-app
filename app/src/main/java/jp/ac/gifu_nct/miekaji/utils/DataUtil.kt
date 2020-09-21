@@ -6,6 +6,7 @@ import jp.ac.gifu_nct.miekaji.structures.JobInfo
 import jp.ac.gifu_nct.miekaji.structures.User
 import jp.ac.gifu_nct.miekaji.utils.http.HTTPClient
 import org.json.JSONArray
+import org.json.JSONException
 import org.json.JSONObject
 
 object DataUtil {
@@ -18,27 +19,31 @@ object DataUtil {
 
     fun fetchTodayJob(): List<JobInfo> {
         val bufferList = ArrayList<JobInfo>()
-        val jobs = fetchData("/job/today", "").getJSONArray("histories")
-        for(i in 0 until jobs.length()) {
-            val element = jobs.getJSONObject(i)
-            val category = element.getJSONObject("category")
-            bufferList.add(
-                JobInfo(
-                    element.getLong("ID"),
-                    JobCategory(
-                        category.getLong("ID"),
-                        category.getString("name"),
-                        category.getString("detail"),
-                        category.getDouble("weight")
-                    ),
-                    element.getDouble("motion"),
-                    element.getDouble("time"),
-                    element.getDouble("value")
+        try {
+            val jobs = fetchData("/job/today", "").getJSONArray("histories")
+            for(i in 0 until jobs.length()) {
+                val element = jobs.getJSONObject(i)
+                val category = element.getJSONObject("category")
+                bufferList.add(
+                    JobInfo(
+                        element.getLong("ID"),
+                        JobCategory(
+                            category.getLong("ID"),
+                            category.getString("name"),
+                            category.getString("detail"),
+                            category.getDouble("weight")
+                        ),
+                        element.getDouble("motion"),
+                        element.getDouble("time"),
+                        element.getDouble("value")
+                    )
                 )
-            )
-        }
+            }
 
-        return bufferList
+            return bufferList
+        } catch (e: JSONException) {
+            return bufferList
+        }
     }
 
     fun fetchTodayJobTimeValueByEach(): HashMap<JobCategory, Pair<Double, Double>> {
@@ -60,57 +65,69 @@ object DataUtil {
 
     fun fetchCategories(): List<JobCategory> {
         val bufferList = ArrayList<JobCategory>()
-        val categories = fetchData("/job/list", "").getJSONArray("categories")
-        for(i in 0 until categories.length()) {
-            val element = categories.getJSONObject(i)
-            bufferList.add(
-                JobCategory(
-                    element.getLong("ID"),
-                    element.getString("name"),
-                    element.getString("detail"),
-                    element.getDouble("weight")
+        try {
+            val categories = fetchData("/job/list", "").getJSONArray("categories")
+            for(i in 0 until categories.length()) {
+                val element = categories.getJSONObject(i)
+                bufferList.add(
+                    JobCategory(
+                        element.getLong("ID"),
+                        element.getString("name"),
+                        element.getString("detail"),
+                        element.getDouble("weight")
+                    )
                 )
-            )
+            }
+            return bufferList
+        } catch(e: JSONException) {
+            return bufferList
         }
-        return bufferList
     }
 
     fun fetchFriends(): List<User> {
         val bufferList = ArrayList<User>()
-        val categories = fetchData("/friends/list", "").getJSONArray("users")
-        for(i in 0 until categories.length()) {
-            val element = categories.getJSONObject(i) ?: continue
-            bufferList.add(
-                User(
-                    element.getLong("ID"),
-                    element.getString("name"),
-                    element.getString("icon_id"),
-                    false,
-                    element.getDouble("sum"),
-                    element.getDouble("today")
+        try {
+            val categories = fetchData("/friends/list", "").getJSONArray("users")
+            for(i in 0 until categories.length()) {
+                val element = categories.getJSONObject(i) ?: continue
+                bufferList.add(
+                    User(
+                        element.getLong("ID"),
+                        element.getString("name"),
+                        element.getString("icon_id"),
+                        false,
+                        element.getDouble("sum"),
+                        element.getDouble("today")
+                    )
                 )
-            )
+            }
+            return bufferList
+        } catch(e: JSONException) {
+            return bufferList
         }
-        return bufferList
     }
 
     fun fetchGroupMembers(): List<User> {
         val bufferList = ArrayList<User>()
-        val categories = fetchData("/fun/info", "").getJSONArray("members")
-        for(i in 0 until categories.length()) {
-            val element = categories.getJSONObject(i)
-            bufferList.add(
-                User(
-                    element.getLong("ID"),
-                    element.getString("name"),
-                    element.getString("icon_id"),
-                    false,
-                    element.getDouble("sum"),
-                    element.getDouble("today")
+        try {
+            val categories = fetchData("/fun/info", "").getJSONArray("members")
+            for(i in 0 until categories.length()) {
+                val element = categories.getJSONObject(i)
+                bufferList.add(
+                    User(
+                        element.getLong("ID"),
+                        element.getString("name"),
+                        element.getString("icon_id"),
+                        false,
+                        element.getDouble("sum"),
+                        element.getDouble("today")
+                    )
                 )
-            )
+            }
+            return bufferList
+        } catch(e: JSONException) {
+            return bufferList
         }
-        return bufferList
     }
 
 }
