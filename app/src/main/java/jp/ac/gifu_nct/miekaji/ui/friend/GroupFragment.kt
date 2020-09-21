@@ -36,9 +36,9 @@ class GroupFragment:Fragment() {
         view.findViewById<LinearLayout>(R.id.loadingOverlay).visibility = View.VISIBLE
 
         val recyclerView = recycler_list
-        val adapter = FriendAdapter(
+        val adapter = GroupAdapter(
             MemberList,
-            object : FriendAdapter.ListListener {
+            object : GroupAdapter.GroupListener {
                 override fun onClickRow(tappedView: View, friendData: User) {
                     this@GroupFragment.onClickRow(tappedView, friendData)
                 }
