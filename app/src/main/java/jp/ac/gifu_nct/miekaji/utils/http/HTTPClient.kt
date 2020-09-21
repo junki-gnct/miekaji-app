@@ -30,8 +30,6 @@ object HTTPClient {
         try {
             con.requestMethod = "GET"
             con.useCaches = false
-            con.doOutput = true
-            con.doInput = true
             con.connect()
 
             val br = BufferedReader(InputStreamReader(con.inputStream))
@@ -66,7 +64,7 @@ object HTTPClient {
         return JSONObject(result)
     }
 
-    fun postRequest(url: String, parameters: HashMap<String, String>?): JSONObject {
+    fun postRequest(url: String, parameters: HashMap<String, Any>?): JSONObject {
         var result = ""
         val url = URL(url);
         val con = url.openConnection() as HttpURLConnection
@@ -78,8 +76,9 @@ object HTTPClient {
             con.setRequestProperty("Content-Type", "application/json;charset=utf-8");
             con.connect()
 
+            Log.d("JSON", JSONObject(parameters as Map<String, Any>).toString())
             val bw = BufferedWriter(OutputStreamWriter(con.outputStream))
-            bw.write(JSONObject(parameters as Map<String, String>).toString())
+            bw.write(JSONObject(parameters as Map<String, Any>).toString())
             bw.close()
 
             val br = BufferedReader(InputStreamReader(con.inputStream))

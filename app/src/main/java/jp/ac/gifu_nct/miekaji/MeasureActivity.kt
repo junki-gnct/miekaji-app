@@ -8,16 +8,20 @@ import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothSocket
 import android.content.DialogInterface
 import android.content.Intent
-import android.icu.util.Measure
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import jp.ac.gifu_nct.miekaji.structures.JobCategory
 import jp.ac.gifu_nct.miekaji.structures.SocketCallback
+import jp.ac.gifu_nct.miekaji.utils.AuthUtil
+import jp.ac.gifu_nct.miekaji.utils.http.HTTPClient
 import kotlinx.android.synthetic.main.activity_measure.*
-import java.io.*
-import java.net.Socket
+import java.io.BufferedReader
+import java.io.IOException
+import java.io.InputStreamReader
+import java.io.OutputStream
 import java.util.*
 
 /**
@@ -35,6 +39,11 @@ class MeasureActivity : AppCompatActivity() {
     private var mOutputStream: OutputStream? = null
     private var mBufferedReader: BufferedReader? = null
     private val uuid = "00001101-0000-1000-8000-00805F9B34FB" //通信規格がSPPであることを示す数字
+    private var startTime: Long? = null
+
+    private var accelValue = 0.0
+    private var dataCount = 0
+    private var category: JobCategory? = null
 
     private lateinit var callback: CallBackActivity
     class CallBackActivity: SocketCallback {
@@ -71,15 +80,59 @@ class MeasureActivity : AppCompatActivity() {
         setContentView(R.layout.activity_measure)
         setResult(Activity.RESULT_CANCELED)
 
+        val intent = this.intent!!
+        category = JobCategory(
+            intent.getLongExtra("categoryID", -1),
+            intent.getStringExtra("displayName")!!,
+            intent.getStringExtra("categoryDetail")!!,
+            intent.getDoubleExtra("jobWeight", 0.0)
+        )
+        Log.d("TAG", category!!.displayName)
+
         measureFinish.setOnClickListener {
             AlertDialog.Builder(this)
                 .setTitle("確認")
                 .setMessage("測定を終了しますか？")
                 .setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
-                    Log.d("TAG", "Finished.")
-                    setResult(Activity.RESULT_OK)
-                    // TODO: send results to server.
-                    finish()
+                    val timeB = (System.currentTimeMillis() - startTime!!) / 1000;
+                    val time = timeB / 60.0  // job time.
+                    if(dataCount == 0) dataCount = 1;
+                    var job = accelValue / dataCount
+
+                    mProgressDialog = ProgressDialog(this)
+                    mProgressDialog!!.setTitle("通信中...")
+                    mProgressDialog!!.setMessage("測定結果をサーバーへ送信しています...")
+                    mProgressDialog!!.setCancelable(false)
+                    mProgressDialog!!.show()
+
+                    Thread() {
+                        // TODO: Send To Server.
+                        val args = HashMap<String, Any>()
+                        args["token"] = AuthUtil.token!!
+                        args["category"] = category!!.categoryID
+                        args["motion"] = job
+                        args["time"] = time
+                        val res = HTTPClient.postRequest("${AuthUtil.API_BASE_URL}/job/new", args);
+                        if (res.getInt("status") != 200) {
+                            showErrorDialog(res.getString("message"))
+                            return@Thread
+                        }
+
+                        runOnUiThread() {
+                            mProgressDialog!!.dismiss()
+                            val resultIntent = Intent()
+                            resultIntent.putExtra("categoryID", category!!.categoryID)
+                            resultIntent.putExtra("displayName", category!!.displayName)
+                            resultIntent.putExtra("categoryDetail", category!!.categoryDetail)
+                            resultIntent.putExtra("jobWeight", category!!.jobWeight)
+
+                            resultIntent.putExtra("jobValue", job)
+                            resultIntent.putExtra("jobTime", time)
+
+                            setResult(Activity.RESULT_OK, resultIntent)
+                            finish()
+                        }
+                    }.start()
                 })
                 .setNegativeButton("いいえ", null)
                 .show()
@@ -199,6 +252,7 @@ class MeasureActivity : AppCompatActivity() {
             runOnUiThread {
                 mProgressDialog!!.dismiss()
             }
+            startTime = System.currentTimeMillis()
             startReading(callback)
         } else {
             runOnUiThread {
