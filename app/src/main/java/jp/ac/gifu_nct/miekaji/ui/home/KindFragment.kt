@@ -12,7 +12,9 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -64,6 +66,12 @@ class KindFragment:Fragment() {
     }
 
     fun onClickRow(tappedView:View, listData: JobCategory){
-        Toast.makeText(context, "リスト${listData.displayName}", Toast.LENGTH_SHORT).show()
+        setFragmentResult("home_category", bundleOf(
+            "categoryID" to listData.categoryID,
+            "displayName" to listData.displayName,
+            "categoryDetail" to listData.categoryDetail,
+            "jobWeight" to listData.jobWeight
+        ))
+        parentFragmentManager.popBackStack()
     }
 }

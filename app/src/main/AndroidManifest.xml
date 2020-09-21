@@ -13,9 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MeasureActivity"
+        <activity android:name=".ResultActivity"></activity>
+        <activity
+            android:name=".MeasureActivity"
             android:label="@string/title_activity_measure"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
