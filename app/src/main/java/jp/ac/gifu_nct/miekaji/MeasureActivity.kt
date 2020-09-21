@@ -11,9 +11,11 @@ import android.content.Intent
 import android.icu.util.Measure
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import jp.ac.gifu_nct.miekaji.structures.SocketCallback
+import kotlinx.android.synthetic.main.activity_measure.*
 import java.io.*
 import java.net.Socket
 import java.util.*
@@ -48,9 +50,33 @@ class MeasureActivity : AppCompatActivity() {
         }
     }
 
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        return if (keyCode != KeyEvent.KEYCODE_BACK) {
+            super.onKeyDown(keyCode, event)
+        } else {
+            AlertDialog.Builder(this)
+                .setTitle("確認")
+                .setMessage("測定を中止しますか？")
+                .setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
+                    finish()
+                })
+                .setNegativeButton("いいえ", null)
+                .show()
+            false
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_measure)
+        setResult(Activity.RESULT_CANCELED)
+
+        measureFinish.setOnClickListener {
+            Log.d("TAG", "Finished.")
+            setResult(Activity.RESULT_OK)
+            // TODO: send results to server.
+            finish()
+        }
 
         callback = CallBackActivity(this)
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -79,14 +105,17 @@ class MeasureActivity : AppCompatActivity() {
     }
 
     private fun showErrorDialog(text: String) {
-        this.runOnUiThread {
-            AlertDialog.Builder(this)
-                .setTitle("エラー")
-                .setMessage(text)
-                .setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
-                    finish()
-                })
-                .show()
+        if(!isFinishing) {
+            this.runOnUiThread {
+                AlertDialog.Builder(this)
+                    .setTitle("エラー")
+                    .setMessage(text)
+                    .setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
+                        finish()
+                    })
+                    .setCancelable(false)
+                    .show()
+            }
         }
     }
 
