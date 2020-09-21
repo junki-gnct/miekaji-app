@@ -4,24 +4,24 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import jp.ac.gifu_nct.miekaji.R
 import jp.ac.gifu_nct.miekaji.structures.User
 
-class GroupAdapter(private val friend:List<User>, private val listener: ListListener):
-    RecyclerView.Adapter<FriendHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendHolder {
+class GroupAdapter(private val friend:List<User>, private val listener: GroupListener):
+    RecyclerView.Adapter<GroupHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupHolder {
         Log.d("Adapter","onCreateViewHolder")
-        val rowView:View=LayoutInflater.from(parent.context).inflate(R.layout.recycle_item,parent,false)
-        return FriendHolder(rowView)
+        val rowView:View=LayoutInflater.from(parent.context).inflate(R.layout.recycle_item_group, parent,false)
+        return GroupHolder(rowView)
     }
 
-    override fun onBindViewHolder(holder: FriendHolder, position: Int) {
+    override fun onBindViewHolder(holder: GroupHolder, position: Int) {
         Log.d("Adapter","onBindViewHolder")
         holder.nameView.text=friend[position].userName
         holder.fWorkValue.text = "%.1f".format(friend[position].jobSum)
-        holder.toGroup.visibility = View.GONE
         holder.itemView.setOnClickListener {
             listener.onClickRow(it,friend[position])
         }
@@ -32,7 +32,7 @@ class GroupAdapter(private val friend:List<User>, private val listener: ListList
         return friend.size
     }
 
-    interface ListListener{
+    interface GroupListener{
         fun onClickRow(tappedView: View, friendData: User)
     }
 }

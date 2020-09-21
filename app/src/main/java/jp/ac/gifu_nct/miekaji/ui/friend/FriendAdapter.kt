@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
 import jp.ac.gifu_nct.miekaji.R
 import jp.ac.gifu_nct.miekaji.structures.User
@@ -12,6 +13,7 @@ class FriendAdapter(private val friend:List<User>, private val listener: ListLis
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendHolder {
         Log.d("Adapter","onCreateViewHolder")
         val rowView:View=LayoutInflater.from(parent.context).inflate(R.layout.recycle_item,parent,false)
+        rowView.findViewById<Button>(R.id.button4).visibility = View.VISIBLE
         return FriendHolder(rowView)
     }
 
