@@ -96,9 +96,11 @@ class HomeFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == measureRequestCode) {
             if (resultCode == Activity.RESULT_OK) {
-                // TODO: Receive some results.
                 val intent = Intent(activity, ResultActivity::class.java)
-                // TODO: send some results.
+                intent.putExtra("displayName", data!!.getStringExtra("displayName"))
+                intent.putExtra("jobWeight", data!!.getDoubleExtra("jobWeight", 0.0))
+                intent.putExtra("jobValue", data!!.getDoubleExtra("jobValue", 0.0))
+                intent.putExtra("jobTime", data!!.getDoubleExtra("jobTime", 0.0))
                 startActivityForResult(intent, resultRequestCode)
             }
         } else if(requestCode == resultRequestCode) {

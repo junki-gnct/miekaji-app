@@ -15,7 +15,7 @@ object AuthUtil {
         val id = sp.getString("miekaji-id", "junki") // default value is for debugging.
         val pass = sp.getString("miekaji-pass", "yaharito")
 
-        val args = HashMap<String, String>()
+        val args = HashMap<String, Any>()
         args["ID"] = id!!
         args["pass"] = pass!!
 
