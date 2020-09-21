@@ -31,6 +31,8 @@ object HTTPClient {
         val con = url.openConnection() as HttpURLConnection
         con.requestMethod = "GET"
         con.useCaches = false
+        con.doOutput = true
+        con.doInput = true
         con.connect()
 
         val br = BufferedReader(InputStreamReader(con.inputStream))

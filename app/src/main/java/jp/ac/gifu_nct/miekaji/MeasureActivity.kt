@@ -72,10 +72,17 @@ class MeasureActivity : AppCompatActivity() {
         setResult(Activity.RESULT_CANCELED)
 
         measureFinish.setOnClickListener {
-            Log.d("TAG", "Finished.")
-            setResult(Activity.RESULT_OK)
-            // TODO: send results to server.
-            finish()
+            AlertDialog.Builder(this)
+                .setTitle("確認")
+                .setMessage("測定を終了しますか？")
+                .setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
+                    Log.d("TAG", "Finished.")
+                    setResult(Activity.RESULT_OK)
+                    // TODO: send results to server.
+                    finish()
+                })
+                .setNegativeButton("いいえ", null)
+                .show()
         }
 
         callback = CallBackActivity(this)

@@ -1,5 +1,8 @@
 package jp.ac.gifu_nct.miekaji
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.FragmentManager
@@ -11,16 +14,39 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import jp.ac.gifu_nct.miekaji.auth.LoginActivity
 import jp.ac.gifu_nct.miekaji.ui.flower.FlowerFragment
 import jp.ac.gifu_nct.miekaji.utils.AuthUtil
 
 class MainActivity : AppCompatActivity() {
+    val isDebug = true
     override fun onCreate(savedInstanceState: Bundle?) {
         if(AuthUtil.token == null) {
-            Thread() {
-                AuthUtil.fetchToken()
-                Log.d("TAG", AuthUtil.token!!)
-            }.start()
+            if(isDebug) {
+                Thread() {
+                    AuthUtil.fetchToken(this)
+                    if(AuthUtil.token == null) {
+                        val intent = Intent(this, LoginActivity::class.java)
+                        startActivity(intent)
+                    }
+                }.start()
+            } else {
+                val sp = getSharedPreferences("miekaji-auth", Context.MODE_PRIVATE)
+                val id = sp.getString("miekaji-id", null)
+                val pass = sp.getString("miekaji-pass", null)
+                if(id == null || pass == null) {
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Thread() {
+                        AuthUtil.fetchToken(this)
+                        if(AuthUtil.token == null) {
+                            val intent = Intent(this, LoginActivity::class.java)
+                            startActivity(intent)
+                        }
+                    }.start()
+                }
+            }
         }
 
         super.onCreate(savedInstanceState)
