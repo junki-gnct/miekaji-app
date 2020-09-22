@@ -42,7 +42,7 @@ class HouseworkFragment : Fragment() {
             jobs.forEach {
                 sum += it.jobValue
             }
-            activity!!.runOnUiThread {
+            requireActivity().runOnUiThread {
                 Wvalue.text = "%.1f".format(sum)
                 root.findViewById<LinearLayout>(R.id.loadingOverlay_housework).visibility = View.GONE
             }

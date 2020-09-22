@@ -75,6 +75,5 @@ class DetailFragment:Fragment() {
     }
 
     fun onClickRow(tappedView:View,listData: JobCategoryandValue){
-        Toast.makeText(context, "リスト${listData.categoryValue.displayName}", Toast.LENGTH_SHORT).show()
     }
 }

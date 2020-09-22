@@ -1,23 +1,13 @@
 package jp.ac.gifu_nct.miekaji.ui.friend
 
 import android.os.Bundle
-import android.text.TextUtils.replace
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.inflate
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.ListFragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import jp.ac.gifu_nct.miekaji.R
-import jp.ac.gifu_nct.miekaji.ui.home.KindFragment
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_friend.*
-import kotlinx.android.synthetic.main.recycle_item.*
 
 class FriendFragment : Fragment() {
 
@@ -42,7 +32,7 @@ class FriendFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val Friend=view.findViewById<Button>(R.id.frilistbutton)
         val Group=view.findViewById<Button>(R.id.grolistbutton)
-        val Rank=view.findViewById<Button>(R.id.rankingbutton)
+        val Rank=view.findViewById<Button>(R.id.friendbutton)
         setFragment(FriendListFragment())
         Friend.setOnClickListener {
             //フレンドリストに切り替絵
@@ -53,7 +43,7 @@ class FriendFragment : Fragment() {
             setFragment(GroupFragment())
         }
         Rank.setOnClickListener {
-            //家事量でソートする
+            // フレンド追加画面にいく
             /**/
         }
     }

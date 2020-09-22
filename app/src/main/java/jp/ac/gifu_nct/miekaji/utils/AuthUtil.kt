@@ -6,6 +6,7 @@ import jp.ac.gifu_nct.miekaji.utils.http.HTTPClient
 object AuthUtil {
 
     val API_BASE_URL = "https://mie-api.pc-z.net"
+    val isDebug = true
 
     var token: String? = null
 
