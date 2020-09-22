@@ -58,6 +58,7 @@ class GroupAdapter(private val friend: ArrayList<User>, private val listener: Gr
                                     AlertDialog.Builder(holder.toGroup.context)
                                         .setTitle("エラー")
                                         .setMessage("処理を完了できませんでした。")
+                                        .setPositiveButton("OK", null)
                                         .show()
                                 }
                                 return@Thread
@@ -69,6 +70,7 @@ class GroupAdapter(private val friend: ArrayList<User>, private val listener: Gr
                                     AlertDialog.Builder(holder.toGroup.context)
                                         .setTitle("エラー")
                                         .setMessage("処理を完了できませんでした。")
+                                        .setPositiveButton("OK", null)
                                         .show()
                                 }
                                 return@Thread
@@ -115,6 +117,7 @@ class GroupAdapter(private val friend: ArrayList<User>, private val listener: Gr
                                     AlertDialog.Builder(holder.toGroup.context)
                                         .setTitle("エラー")
                                         .setMessage("処理を完了できませんでした。")
+                                        .setPositiveButton("OK", null)
                                         .show()
                                 }
                                 return@Thread
@@ -127,6 +130,7 @@ class GroupAdapter(private val friend: ArrayList<User>, private val listener: Gr
                                     AlertDialog.Builder(holder.toGroup.context)
                                         .setTitle("エラー")
                                         .setMessage("処理を完了できませんでした。")
+                                        .setPositiveButton("OK", null)
                                         .show()
                                 }
                                 return@Thread
@@ -139,6 +143,7 @@ class GroupAdapter(private val friend: ArrayList<User>, private val listener: Gr
                                     AlertDialog.Builder(holder.toGroup.context)
                                         .setTitle("エラー")
                                         .setMessage("処理を完了できませんでした。")
+                                        .setPositiveButton("OK", null)
                                         .show()
                                 }
                                 return@Thread

@@ -98,6 +98,7 @@ class FriendListFragment:Fragment() {
                             AlertDialog.Builder(tappedView.context)
                                 .setTitle("エラー")
                                 .setMessage("処理を完了できませんでした。")
+                                .setPositiveButton("OK", null)
                                 .show()
                         }
                         return@Thread
