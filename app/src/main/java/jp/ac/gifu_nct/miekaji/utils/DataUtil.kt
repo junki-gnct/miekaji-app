@@ -122,13 +122,15 @@ object DataUtil {
                 user.isSameGroup = isUserInList(user, groupMembers)
                 bufferList.add(user)
             }
+            bufferList.sortBy { it.userName }
+            bufferList.sortByDescending { it.jobSum }
             return bufferList
         } catch(e: JSONException) {
             return bufferList
         }
     }
 
-    fun isUserInList(user: User, list: List<User>):Boolean {
+    private fun isUserInList(user: User, list: List<User>):Boolean {
         list.forEach {
             if (user == it) return true
         }
@@ -152,6 +154,8 @@ object DataUtil {
                 )
                 bufferList.add(user)
             }
+            bufferList.sortBy { it.userName }
+            bufferList.sortByDescending { it.jobSum }
             return bufferList
         } catch(e: JSONException) {
             return bufferList

@@ -40,7 +40,7 @@ class MeasureActivity : AppCompatActivity() {
     private var mOutputStream: OutputStream? = null
     private var mBufferedReader: BufferedReader? = null
     private val uuid = "00001101-0000-1000-8000-00805F9B34FB" //通信規格がSPPであることを示す数字
-    private var startTime: Long? = null
+    private var startTime: Long = System.currentTimeMillis()
 
     var accelValue = 0.0
     var dataCount = 0
