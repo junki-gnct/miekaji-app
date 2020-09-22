@@ -21,6 +21,17 @@ class FriendAdapter(private val friend:List<User>, private val listener: ListLis
         Log.d("Adapter","onBindViewHolder")
         holder.nameView.text = friend[position].userName
         holder.fWorkValue.text = "%.1f".format(friend[position].jobSum)
+        if (friend[position].isSameGroup) {
+            holder.toGroup.text = "グループから削除"
+            holder.toGroup.setOnClickListener {
+                Log.d("TODO", "Query for remove");
+            }
+        } else {
+            holder.toGroup.text = "グループに追加"
+            holder.toGroup.setOnClickListener {
+                Log.d("TODO", "Query for add");
+            }
+        }
         holder.itemView.setOnClickListener {
             listener.onClickRow(it,friend[position])
         }

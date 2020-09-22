@@ -45,6 +45,7 @@ class GroupFragment:Fragment() {
             })
 
         Thread() {
+            if(DataUtil.me == null) DataUtil.me = DataUtil.fetchMe()
             val cat = DataUtil.fetchGroupMembers()
             MemberList.clear()
             MemberList.addAll(cat)
@@ -61,6 +62,5 @@ class GroupFragment:Fragment() {
     }
 
     fun onClickRow(tappedView: View, friendData: User){
-        Toast.makeText(context, "リスト${friendData.userName}", Toast.LENGTH_SHORT).show()
     }
 }

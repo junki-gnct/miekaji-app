@@ -182,7 +182,9 @@ class MeasureActivity : AppCompatActivity() {
                     .setTitle("エラー")
                     .setMessage(text)
                     .setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
-                        finish()
+                        if(!AuthUtil.isDebug){
+                            finish()
+                        }
                     })
                     .setCancelable(false)
                     .show()

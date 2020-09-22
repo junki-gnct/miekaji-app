@@ -56,12 +56,20 @@
                 android:orientation="horizontal" />
 
             <Button
-                android:id="@+id/rankingbutton"
+                android:id="@+id/friendbutton"
                 android:layout_width="151dp"
                 android:layout_height="wrap_content"
-                android:text="ランキング" />
+                android:text="フレンド追加" />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="フレンドリストでタップすることで\nフレンドを削除することができます。"
+            android:textSize="16sp" />
 
     </LinearLayout>
 

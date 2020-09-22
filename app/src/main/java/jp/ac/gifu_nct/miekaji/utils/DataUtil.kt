@@ -11,6 +11,8 @@ import org.json.JSONObject
 
 object DataUtil {
 
+    var me: User? = null
+
     fun fetchData(endpoint: String, arguments: String): JSONObject {
         val req_url = "${AuthUtil.API_BASE_URL}${endpoint}?token=${AuthUtil.token}${arguments}"
 
@@ -84,27 +86,53 @@ object DataUtil {
         }
     }
 
+    fun fetchMe(): User? {
+        return try {
+            val element = fetchData("/user/me", "")
+            User(
+                element.getLong("ID"),
+                element.getString("name"),
+                element.getString("icon_id"),
+                false,
+                element.getDouble("sum"),
+                element.getDouble("today"),
+                true
+            )
+        } catch(e: JSONException) {
+            null
+        }
+    }
+
     fun fetchFriends(): List<User> {
+        val groupMembers = fetchGroupMembers()
         val bufferList = ArrayList<User>()
         try {
             val categories = fetchData("/friends/list", "").getJSONArray("users")
             for(i in 0 until categories.length()) {
                 val element = categories.getJSONObject(i) ?: continue
-                bufferList.add(
-                    User(
-                        element.getLong("ID"),
-                        element.getString("name"),
-                        element.getString("icon_id"),
-                        false,
-                        element.getDouble("sum"),
-                        element.getDouble("today")
-                    )
+                val user = User(
+                    element.getLong("ID"),
+                    element.getString("name"),
+                    element.getString("icon_id"),
+                    false,
+                    element.getDouble("sum"),
+                    element.getDouble("today"),
+                    false
                 )
+                user.isSameGroup = isUserInList(user, groupMembers)
+                bufferList.add(user)
             }
             return bufferList
         } catch(e: JSONException) {
             return bufferList
         }
+    }
+
+    fun isUserInList(user: User, list: List<User>):Boolean {
+        list.forEach {
+            if (user == it) return true
+        }
+        return false
     }
 
     fun fetchGroupMembers(): List<User> {
@@ -113,16 +141,16 @@ object DataUtil {
             val categories = fetchData("/fun/info", "").getJSONArray("members")
             for(i in 0 until categories.length()) {
                 val element = categories.getJSONObject(i)
-                bufferList.add(
-                    User(
-                        element.getLong("ID"),
-                        element.getString("name"),
-                        element.getString("icon_id"),
-                        false,
-                        element.getDouble("sum"),
-                        element.getDouble("today")
-                    )
+                val user = User(
+                    element.getLong("ID"),
+                    element.getString("name"),
+                    element.getString("icon_id"),
+                    false,
+                    element.getDouble("sum"),
+                    element.getDouble("today"),
+                    true
                 )
+                bufferList.add(user)
             }
             return bufferList
         } catch(e: JSONException) {

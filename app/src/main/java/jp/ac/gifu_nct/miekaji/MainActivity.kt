@@ -1,6 +1,8 @@
 package jp.ac.gifu_nct.miekaji
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +11,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import android.os.Debug
 import android.util.Log
+import android.view.KeyEvent
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -19,10 +22,10 @@ import jp.ac.gifu_nct.miekaji.ui.flower.FlowerFragment
 import jp.ac.gifu_nct.miekaji.utils.AuthUtil
 
 class MainActivity : AppCompatActivity() {
-    val isDebug = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         if(AuthUtil.token == null) {
-            if(isDebug) {
+            if(AuthUtil.isDebug) {
                 Thread() {
                     AuthUtil.fetchToken(this)
                     if(AuthUtil.token == null) {

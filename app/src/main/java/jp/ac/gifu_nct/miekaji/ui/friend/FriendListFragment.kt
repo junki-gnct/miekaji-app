@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import jp.ac.gifu_nct.miekaji.R
 import jp.ac.gifu_nct.miekaji.structures.User
+import jp.ac.gifu_nct.miekaji.ui.detail.DetailFragment
+import jp.ac.gifu_nct.miekaji.ui.home.KindFragment
 import jp.ac.gifu_nct.miekaji.utils.DataUtil
 import kotlinx.android.synthetic.main.fragment_list.*
 
@@ -65,7 +67,7 @@ class FriendListFragment:Fragment() {
         recyclerView.adapter = adapter
     }
 
-    fun onClickRow(tappedView:View, friendData: User){
-        Toast.makeText(context, "リスト${friendData.userName}", Toast.LENGTH_SHORT).show()
+    fun onClickRow(tappedView: View, friendData: User){
+        Log.d("TODO", "Dialog for confirmation.");
     }
 }
