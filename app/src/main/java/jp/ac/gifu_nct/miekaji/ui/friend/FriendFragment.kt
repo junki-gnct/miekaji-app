@@ -43,7 +43,7 @@ class FriendFragment : Fragment() {
             setFragment(GroupFragment())
         }
         Rank.setOnClickListener {
-            //家事量でソートする
+            // フレンド追加画面にいく
             /**/
         }
     }

@@ -44,6 +44,11 @@ class MainActivity : AppCompatActivity() {
                     Thread() {
                         AuthUtil.fetchToken(this)
                         if(AuthUtil.token == null) {
+                            val editor = sp.edit()
+                            editor.remove("miekaji-id")
+                            editor.remove("miekaji-pass")
+                            editor.commit()
+
                             val intent = Intent(this, LoginActivity::class.java)
                             startActivity(intent)
                         }
