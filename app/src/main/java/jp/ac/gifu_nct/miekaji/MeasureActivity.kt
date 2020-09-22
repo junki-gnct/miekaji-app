@@ -55,7 +55,6 @@ class MeasureActivity : AppCompatActivity() {
 
         override fun onMessage(message: String) {
             activity.runOnUiThread {
-                Log.d("Received", message)
                 if(message.toLowerCase().startsWith("accel_")) {
                     val accel = (message.toLowerCase().replace("accel_", "")).toDouble()
                     activity.accelValue += accel
@@ -98,7 +97,6 @@ class MeasureActivity : AppCompatActivity() {
             intent.getStringExtra("categoryDetail")!!,
             intent.getDoubleExtra("jobWeight", 0.0)
         )
-        Log.d("TAG", category!!.displayName)
 
         measureFinish.setOnClickListener {
             AlertDialog.Builder(this)
@@ -243,7 +241,6 @@ class MeasureActivity : AppCompatActivity() {
                     runOnUiThread {
                         mProgressDialog!!.dismiss()
                         mBTSocket = null
-                        Log.d("TAG", "error1")
                         showErrorDialog("デバイスに接続できませんでした。")
                     }
                     return
@@ -251,7 +248,6 @@ class MeasureActivity : AppCompatActivity() {
                     runOnUiThread {
                         mProgressDialog!!.dismiss()
                         mBTSocket = null
-                        Log.d("TAG", "error2")
                         showErrorDialog("接続中にエラーが発生しました。")
                     }
                     return
@@ -270,7 +266,6 @@ class MeasureActivity : AppCompatActivity() {
         } else {
             runOnUiThread {
                 mProgressDialog!!.dismiss()
-                Log.d("TAG", "error3")
                 finish()
             }
         }
@@ -278,7 +273,6 @@ class MeasureActivity : AppCompatActivity() {
     }
 
     private fun startReading(callback: SocketCallback) {
-        Log.d("TAG", "Start.")
         mBufferedReader = try {
             while(mBufferedReader != null) {
                 callback.onMessage(mBufferedReader!!.readLine())

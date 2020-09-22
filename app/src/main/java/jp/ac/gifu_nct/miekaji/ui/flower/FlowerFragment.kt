@@ -89,7 +89,6 @@ class FlowerFragment : Fragment() {
                         "%.1f".format(sum)
                     run loop@{
                         flowerValue.forEachIndexed { index, value ->
-                            Log.d("TAG", "[%d] %.1f".format(index, value))
                             flowerIndex = index
                             if (value > sum) {
                                 return@loop

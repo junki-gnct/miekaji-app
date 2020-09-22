@@ -20,14 +20,12 @@ import java.util.HashMap
 
 class FriendAdapter(private val friend:List<User>, private val listener: ListListener):RecyclerView.Adapter<FriendHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendHolder {
-        Log.d("Adapter","onCreateViewHolder")
         val rowView:View=LayoutInflater.from(parent.context).inflate(R.layout.recycle_item,parent,false)
         rowView.findViewById<Button>(R.id.button4).visibility = View.VISIBLE
         return FriendHolder(rowView)
     }
 
     override fun onBindViewHolder(holder: FriendHolder, position: Int) {
-        Log.d("Adapter","onBindViewHolder")
         holder.nameView.text = friend[position].userName
         holder.fWorkValue.text = "%.1f".format(friend[position].jobSum)
         if (friend[position].isSameGroup) {
@@ -147,7 +145,6 @@ class FriendAdapter(private val friend:List<User>, private val listener: ListLis
     }
 
     override fun getItemCount():Int{
-        Log.d("Adapter","getItemCount")
         return friend.size
     }
 

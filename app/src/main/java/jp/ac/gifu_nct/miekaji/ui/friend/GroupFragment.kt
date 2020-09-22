@@ -30,7 +30,6 @@ class GroupFragment:Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("lifeCycle", "onViewCreated")
 
         val handler = Handler(Looper.getMainLooper())
         view.findViewById<LinearLayout>(R.id.loadingOverlay).visibility = View.VISIBLE
