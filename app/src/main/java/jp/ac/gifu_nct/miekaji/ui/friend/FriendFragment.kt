@@ -46,7 +46,7 @@ class FriendFragment : Fragment() {
         val Rank=view.findViewById<Button>(R.id.friendbutton)
         setFragment(FriendListFragment())
         Friend.setOnClickListener {
-            //フレンドリストに切り替絵
+            //フレンドリストに切り替え
             isFriend = true
             setFragment(FriendListFragment())
         }
