@@ -67,6 +67,7 @@ class FriendFragment : Fragment() {
                         AlertDialog.Builder(it.context)
                             .setTitle("エラー")
                             .setMessage("ユーザーIDが入力されていません。")
+                            .setPositiveButton("OK", null)
                             .show()
                         return@OnClickListener
                     }
