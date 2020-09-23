@@ -36,7 +36,6 @@ class DetailFragment:Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("lifeCycle","onViewCreated")
 
         val handler = Handler(Looper.getMainLooper())
         view.findViewById<LinearLayout>(R.id.loading_ovelay_detail).visibility = View.VISIBLE

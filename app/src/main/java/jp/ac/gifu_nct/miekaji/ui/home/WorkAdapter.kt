@@ -10,7 +10,6 @@ import jp.ac.gifu_nct.miekaji.structures.JobCategory
 
 class WorkAdapter(private val list:List<JobCategory>,private val listener:ListListener):RecyclerView.Adapter<WorkHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkHolder {
-        Log.d("Adapter","onCreateViewHolder")
         val rowView: View =
             LayoutInflater.from(parent.context).inflate(R.layout.recycle_work,parent,false)
         return WorkHolder(rowView)
@@ -18,7 +17,6 @@ class WorkAdapter(private val list:List<JobCategory>,private val listener:ListLi
 
 
     override fun onBindViewHolder(holder:WorkHolder, position: Int) {
-        Log.d("Adapter","onBindViewHolder")
         holder.workView.text = "${list[position].displayName} (x${"%.1f".format(list[position].jobWeight)})"
         holder.itemView.setOnClickListener {
             listener.onClickRow(it,list[position])
@@ -26,7 +24,6 @@ class WorkAdapter(private val list:List<JobCategory>,private val listener:ListLi
     }
 
     override fun getItemCount():Int{
-        Log.d("Adapter","getItemCount")
         return list.size
     }
 

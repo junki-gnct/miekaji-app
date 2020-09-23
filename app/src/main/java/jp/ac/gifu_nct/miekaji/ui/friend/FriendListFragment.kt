@@ -43,7 +43,6 @@ class FriendListFragment:Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("lifeCycle","onViewCreated")
 
         val handler = Handler(Looper.getMainLooper())
         view.findViewById<LinearLayout>(R.id.loadingOverlay).visibility = View.VISIBLE
@@ -98,6 +97,7 @@ class FriendListFragment:Fragment() {
                             AlertDialog.Builder(tappedView.context)
                                 .setTitle("エラー")
                                 .setMessage("処理を完了できませんでした。")
+                                .setPositiveButton("OK", null)
                                 .show()
                         }
                         return@Thread

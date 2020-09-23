@@ -38,7 +38,6 @@ class KindFragment:Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("lifeCycle","onViewCreated")
 
         val recyclerView=recycler_list
         val adapter = WorkAdapter(CategoryList, object : WorkAdapter.ListListener {

@@ -23,8 +23,6 @@ object HTTPClient {
         }
         var requestedUrl = url + arguments
 
-        Log.d("URL", requestedUrl)
-
         val url = URL(requestedUrl);
         val con = url.openConnection() as HttpURLConnection
         try {
@@ -76,7 +74,6 @@ object HTTPClient {
             con.setRequestProperty("Content-Type", "application/json;charset=utf-8");
             con.connect()
 
-            Log.d("JSON", JSONObject(parameters as Map<String, Any>).toString())
             val bw = BufferedWriter(OutputStreamWriter(con.outputStream))
             bw.write(JSONObject(parameters as Map<String, Any>).toString())
             bw.close()

@@ -24,13 +24,11 @@ import java.util.HashMap
 class GroupAdapter(private val friend: ArrayList<User>, private val listener: GroupListener):
     RecyclerView.Adapter<GroupHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupHolder {
-        Log.d("Adapter","onCreateViewHolder")
         val rowView:View=LayoutInflater.from(parent.context).inflate(R.layout.recycle_item_group, parent,false)
         return GroupHolder(rowView)
     }
 
     override fun onBindViewHolder(holder: GroupHolder, position: Int) {
-        Log.d("Adapter","onBindViewHolder")
         if(DataUtil.me!! == friend[position]) {
             holder.nameView.text = "${friend[position].userName} (自分)"
             holder.fWorkValue.text = "%.1f".format(friend[position].jobSum)
@@ -58,6 +56,7 @@ class GroupAdapter(private val friend: ArrayList<User>, private val listener: Gr
                                     AlertDialog.Builder(holder.toGroup.context)
                                         .setTitle("エラー")
                                         .setMessage("処理を完了できませんでした。")
+                                        .setPositiveButton("OK", null)
                                         .show()
                                 }
                                 return@Thread
@@ -69,6 +68,7 @@ class GroupAdapter(private val friend: ArrayList<User>, private val listener: Gr
                                     AlertDialog.Builder(holder.toGroup.context)
                                         .setTitle("エラー")
                                         .setMessage("処理を完了できませんでした。")
+                                        .setPositiveButton("OK", null)
                                         .show()
                                 }
                                 return@Thread
@@ -115,6 +115,7 @@ class GroupAdapter(private val friend: ArrayList<User>, private val listener: Gr
                                     AlertDialog.Builder(holder.toGroup.context)
                                         .setTitle("エラー")
                                         .setMessage("処理を完了できませんでした。")
+                                        .setPositiveButton("OK", null)
                                         .show()
                                 }
                                 return@Thread
@@ -127,6 +128,7 @@ class GroupAdapter(private val friend: ArrayList<User>, private val listener: Gr
                                     AlertDialog.Builder(holder.toGroup.context)
                                         .setTitle("エラー")
                                         .setMessage("処理を完了できませんでした。")
+                                        .setPositiveButton("OK", null)
                                         .show()
                                 }
                                 return@Thread
@@ -139,6 +141,7 @@ class GroupAdapter(private val friend: ArrayList<User>, private val listener: Gr
                                     AlertDialog.Builder(holder.toGroup.context)
                                         .setTitle("エラー")
                                         .setMessage("処理を完了できませんでした。")
+                                        .setPositiveButton("OK", null)
                                         .show()
                                 }
                                 return@Thread
@@ -161,7 +164,6 @@ class GroupAdapter(private val friend: ArrayList<User>, private val listener: Gr
     }
 
     override fun getItemCount():Int{
-        Log.d("Adapter","getItemCount")
         return friend.size
     }
 
