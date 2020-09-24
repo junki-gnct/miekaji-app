@@ -11,6 +11,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
+import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -61,7 +62,7 @@ class MeasureActivity : AppCompatActivity() {
                     activity.dataCount++
 
                     val time = (System.currentTimeMillis() - activity.startTime!!) / 1000 / 60.0
-                    activity.findViewById<TextView>(R.id.JobValue).text = "%.1f".format(activity.accelValue * time * activity.category!!.jobWeight)
+                    activity.findViewById<TextView>(R.id.JobValue).text = "%.1f".format(activity.accelValue / activity.dataCount * time * activity.category!!.jobWeight)
                     activity.findViewById<TextView>(R.id.avgSpeed).text = "%.1f".format(activity.accelValue / activity.dataCount)
                     activity.findViewById<TextView>(R.id.measureMinutes).text = "%.1f 分".format(time)
                 }
@@ -89,6 +90,7 @@ class MeasureActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_measure)
         setResult(Activity.RESULT_CANCELED)
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         val intent = this.intent!!
         category = JobCategory(

@@ -3,6 +3,7 @@ package jp.ac.gifu_nct.miekaji.ui.friend
 import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -14,9 +15,11 @@ import android.widget.EditText
 import androidx.core.view.marginRight
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import jp.ac.gifu_nct.miekaji.ProfileActivity
 import jp.ac.gifu_nct.miekaji.R
 import jp.ac.gifu_nct.miekaji.utils.AuthUtil
 import jp.ac.gifu_nct.miekaji.utils.http.HTTPClient
+import kotlinx.android.synthetic.main.fragment_friend.*
 import java.util.HashMap
 
 class FriendFragment : Fragment() {
@@ -45,6 +48,10 @@ class FriendFragment : Fragment() {
         val Group=view.findViewById<Button>(R.id.grolistbutton)
         val Rank=view.findViewById<Button>(R.id.friendbutton)
         setFragment(FriendListFragment())
+        myprobutton.setOnClickListener {
+            val intent = Intent(it.context, ProfileActivity::class.java)
+            startActivity(intent)
+        }
         Friend.setOnClickListener {
             //フレンドリストに切り替え
             isFriend = true
