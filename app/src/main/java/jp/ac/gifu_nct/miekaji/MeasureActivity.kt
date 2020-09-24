@@ -61,7 +61,7 @@ class MeasureActivity : AppCompatActivity() {
                     activity.dataCount++
 
                     val time = (System.currentTimeMillis() - activity.startTime!!) / 1000 / 60.0
-                    activity.findViewById<TextView>(R.id.JobValue).text = "%.1f".format(activity.accelValue * time * activity.category!!.jobWeight)
+                    activity.findViewById<TextView>(R.id.JobValue).text = "%.1f".format(activity.accelValue / activity.dataCount * time * activity.category!!.jobWeight)
                     activity.findViewById<TextView>(R.id.avgSpeed).text = "%.1f".format(activity.accelValue / activity.dataCount)
                     activity.findViewById<TextView>(R.id.measureMinutes).text = "%.1f 分".format(time)
                 }
