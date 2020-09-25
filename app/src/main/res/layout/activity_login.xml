@@ -34,7 +34,10 @@
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="見え家事"
-                android:textSize="40sp" />
+                android:textSize="40sp"
+                app:autoSizeMaxTextSize="40sp"
+                app:autoSizeMinTextSize="20sp"
+                app:autoSizeTextType="uniform" />
 
             <Space
                 android:layout_width="0dp"
