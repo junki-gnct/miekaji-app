@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="本日の合計家事時間"
+                android:text="今日の合計家事時間"
                 android:textSize="24sp" />
 
             <TextView
@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="本日の合計家事量"
+                android:text="今日の合計家事量"
                 android:textSize="24sp" />
 
             <TextView
